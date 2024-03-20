@@ -1,0 +1,43 @@
+
+
+.card{
+    height: 200px;
+    padding: 5px;
+
+}
+/* Ensure the cards are horizontal */
+.horizontal-cards .card {
+    display: flex;
+    flex-direction: row;
+    margin-left: 50px;
+    margin-bottom: 10px;
+
+}
+.horizontal-cards{
+    margin-top: 110px;
+    padding: 10px;
+
+}
+
+/* Add space between cards */
+.horizontal-cards .card:not(:last-child) {
+    
+}
+
+/* Form styling */
+.appointment-form {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.card-img-top{
+    width: 250px;
+    height: 170px;
+    padding: 10px;
+    border-radius: 5px;
+
+
+}
+.appointment-form{
+    margin-top: 150px;
+}

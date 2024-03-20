@@ -1,0 +1,110 @@
+.container{
+    margin :0;
+    padding:0;
+}
+
+.navbar{
+    background-color: aliceblue;
+    border-radius: 30px;
+    height: 80px;
+    margin: 10px;
+    padding: 1rem;
+}
+
+.login-button {
+    /* Add your styles here */
+    color: #fff;
+    background-color: lightseagreen;
+    font-size: 16px;
+    padding: 8px 20px;
+    margin: 3px;
+    transition: 0.3s background-color;
+    border-radius: 50px;
+}
+.navbar-brand{
+    font-weight: 600;
+    color: #009970;
+    font-size: 30px;
+    transition: 0.3s color;
+}
+.login-button:hover {
+    background-color: #00b383;
+}
+
+.navbar-toggler{
+    border: none; 
+    font-size: 1.25rem;
+}
+.navbar-toggler:focus , .btn-close:focus {
+    box-shadow: none;
+    outline: none;
+} 
+.nav-link {
+    color: #666777;
+    font-weight: 500;
+    font-size: 20px;
+    position: relative;
+}
+.nav-link:hover , .nav-link.active{
+    color: black;
+}
+
+.nav-link::before{
+    content:"";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background-color: #009970;
+    visibility: hidden;
+    transition: 0.3s ease-in-out;
+}
+
+.nav-link:hover::before, .nav-link:active:before {
+    width: 100%;
+    visibility: visible;
+}
+
+.container{
+
+    background-image: url(../static/images/background.png);
+    background-size: cover;
+    background-position: center ;
+    height: 100vh; 
+    width: 100vw;
+    top: 5px;  
+    position: relative;
+    max-width: none;
+}
+
+h1{
+    position: absolute;
+    top: 40%;
+    left: 63%;
+    color:rgb(0, 255, 234);
+    font-weight: 500;
+    font-size: 3.5em;
+}
+
+.login {
+    width: 50%; /* Adjust the width as needed */
+    margin-left: calc(50% - 25%); /* 50% of the viewport width minus half of the div width */
+}
+/* .container::before{
+    background-color: rgba(0,0,0,0);
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;  
+    left: 0;
+    
+} */
+
+#doctor{
+    background-image: none;
+    background-color:rgb(181, 218, 238);
+    height: fit-content;
+}

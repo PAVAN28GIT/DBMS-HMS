@@ -1,0 +1,19 @@
+1. import flask......flask is module and Flask is class in that module
+2. initialize app .....app = Flask(__name__)
+
+3. @app.route('/')
+   write logic..
+
+
+
+class Student(db.Model): 
+    # this class is representation of table in our database
+    # instances of this class will correspond to rows in that table
+    # attributes of the class will correspond to columns in the table.
+    # student is inheriting db.model.....db.model is class provided by SQLALCHEMY ...it provides methods to interact with database
+    # class Student(db.model) is a way of defining model of database
+    # model - representation or structure that defines how data is organized, stored, and accessed within the database. 
+   
+
+if (__name__=='__main__'):
+    app.run(debug = True)
