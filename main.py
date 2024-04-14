@@ -1,9 +1,11 @@
 from flask import Flask,render_template,request,session,redirect,url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
+from flask_login import current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user,logout_user,login_manager,LoginManager
 from flask_login import login_required,current_user
+from flask import flash
 
 app = Flask(__name__)
 
@@ -66,8 +68,6 @@ def index():
     return render_template('index.html')
 
 
-
-
 @app.route('/login',  methods=['POST','GET'])
 def login():
     if request.method == "POST" :
@@ -113,42 +113,67 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
-
-
-# @app.route("/home", methods=['POST','GET'])
-# def home():
-#     return render_template('home.html',username = current_user.uname)
-
-
 @app.route("/doctor")
 def doctor():
     return render_template('doctors.html')
 
 
-@app.route("/appointment", methods=['POST','GET'])
-def appointment():
+@app.route("/submit_appointment", methods=['POST', 'GET'])
+def submit_appointment():
     if request.method == "POST" :
         email = request.form.get('email')
         doctor = request.form.get('doctor')
         date = request.form.get('date')
         time = request.form.get('time')
-
         user = User.query.filter_by(email=email).first()
+        
         # Creating a new user using SQLAlchemy ORM
         new_user = Patient(pemail=email, dname=doctor, date=date,time=time)
-
         # Adding the user to the database session and committing the changes
         db.session.add(new_user)
         db.session.commit()
-
-
-
+        return redirect(url_for('list_appointments')) # Redirect to '/appointments' after form submission
     if current_user.is_authenticated:
-        return render_template('appointment.html')
+        print("Hello")
+        return render_template('appointments.html')
     else:
         return render_template('login.html')
-    
-    
+
+
+@app.route('/list_appointments')
+@login_required
+def list_appointments():
+    if current_user.is_authenticated:
+        appointments_data = Patient.query.filter_by(pemail=current_user.email).all()
+        return render_template('appointments.html', appointments=appointments_data)
+    else:
+        flash('You need to log in first.', 'info')
+        return redirect(url_for('login'))
+
+
+@app.route('/edit/<int:pid>', methods=['GET', 'POST'])
+def edit_appointment(pid):
+    appointment = Patient.query.get(pid)
+    if request.method == 'POST':
+        # Update the appointment details based on the form data
+        appointment.dname = request.form['doctor']
+        appointment.date = request.form['date']
+        appointment.time = request.form['time']
+        # Commit the changes to the database
+        db.session.commit()
+        return redirect(url_for('list_appointments'))
+    return render_template('edit_appointment.html', appointment=appointment)
+
+
+@app.route('/delete/<int:pid>', methods=['GET', 'POST'])
+def delete_appointment(pid):
+    appointment = Patient.query.get(pid)
+    if request.method == 'POST':
+        # Delete the appointment from the database
+        db.session.delete(appointment)
+        db.session.commit()
+        return redirect(url_for('list_appointments'))
+    return render_template('delete_appointment.html', appointment=appointment)    
 
 if __name__ == '__main__':
     app.run(debug=True)

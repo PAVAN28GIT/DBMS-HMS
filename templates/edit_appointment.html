@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Appointment</title>
+    <!-- Add necessary styles or libraries -->
+</head>
+<body>
+    <h2>Edit Appointment</h2>
+    <form method="post" action="{{ url_for('edit_appointment', pid=appointment.pid) }}">
+        <label for="doctor">Doctor:</label>
+        <input type="text" id="doctor" name="doctor" value="{{ appointment.dname }}" required>
+        
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date" value="{{ appointment.date }}" required>
+        
+        <label for="time">Time:</label>
+        <input type="time" id="time" name="time" value="{{ appointment.time }}" required>
+        
+        <button type="submit">Save Changes</button>
+    </form>
+    <a href="{{ url_for('appointments') }}">Back to Appointments</a>
+</body>
+</html>
